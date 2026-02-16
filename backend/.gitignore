@@ -11,7 +11,7 @@ venv/
 # Node
 node_modules/
 
-# VS Code
+# VSCode
 .vscode/
 
 # Logs
