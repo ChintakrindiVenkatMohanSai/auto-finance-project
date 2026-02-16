@@ -36,9 +36,10 @@ CORS(app)
 # MongoDB Setup
 # =========================
 if not MONGO_URI:
-    raise Exception("MONGO_URI missing in .env")
+    raise Exception("MONGO_URI missing in environment variables (.env or Render env).")
 
-client = MongoClient(MONGO_URI)
+# Important: timeout added for Render stability
+client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=10000)
 db = client["auto_finance"]
 
 vehicles_col = db["vehicles"]
@@ -61,7 +62,7 @@ def generate_otp():
 
 def send_otp_email(to_email, otp):
     if not EMAIL_USER or not EMAIL_PASS:
-        raise Exception("EMAIL_USER or EMAIL_PASS missing in .env")
+        raise Exception("EMAIL_USER or EMAIL_PASS missing in environment variables.")
 
     subject = "Admin Password Reset OTP"
     html_body = f"""
@@ -91,8 +92,8 @@ def clean_vehicle_doc(doc):
 
 def get_admin_password_plain():
     """
-    Your frontend expects password in plain text (because you compare it directly).
-    So we store it plain in DB.
+    Your frontend compares password directly.
+    So we store it plain text in DB.
     """
     doc = settings_col.find_one({"key": "admin_password"})
     if not doc:
@@ -331,9 +332,5 @@ def update_vehicle_noc(vehicleNumber):
 # =========================
 # Run
 # =========================
-client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=10000)
-db = client["auto_finance"]
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
-
