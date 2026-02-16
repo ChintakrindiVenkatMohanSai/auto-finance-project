@@ -1,18 +1,22 @@
-# ENV files
-.env
-backend/.env
-
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.log
+.env
 .venv/
 venv/
 
-# Node
-node_modules/
-
-# VSCode
+# VS Code
 .vscode/
 
-# Logs
-*.log
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (just in case)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
