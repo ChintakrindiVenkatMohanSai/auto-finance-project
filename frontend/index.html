@@ -419,16 +419,15 @@ const { jsPDF } = window.jspdf;
 /* ============================================================
    AUTO SWITCH API (LOCAL + DEPLOYED)
 ============================================================ */
-const BASE =
+const BASE_URL =
   window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? "http://localhost:5000"
-    : "https://auto-finance-api.onrender.com";
-
-const BASE_URL = "https://auto-finance-project-10.onrender.com";
+    : "https://auto-finance-project-10.onrender.com";
 
 const API_BASE_URL = `${BASE_URL}/api/vehicles`;
 const SETTINGS_API_URL = `${BASE_URL}/api/settings/admin-password`;
 const OTP_API_URL = `${BASE_URL}/api/auth`;
+
 ;
 
 let ADMIN_PASSWORD = "Vehicle@2005";
